@@ -1,14 +1,27 @@
+//require file system
 var fs = require('fs');
-
-module.exports.readDirectory = function(path){
-    fs.readdir(dirname, function(err, filenames) {
+/**
+ * create readDirectory function to be called later
+ */
+module.exports.readDirectory = function(path, callback, onError){
+    //try to read directory sent in
+    fs.readdir(path, function(err, filenames) {
+        //if there was error, throw
         if (err) {
         onError(err);
         return;
         }
-        filenames.array.forEach(function(filename) {
-            filename = path + filename;
+        //create temp array for file names to be concatenated with path
+        var newFileNames = [];
+        //make sure to add trailing slash to path
+         if(!path.endsWith('/')){
+            path = path + '/';
+         }
+         //go thru all objects and add to the newFileNames array with the path
+        filenames.forEach(function(filename) {
+            newFileNames.push( path + filename);
         });
-        return filenames;
+        //run the callback function with the new filenames
+        callback(newFileNames);
      });
 }
