@@ -5,7 +5,6 @@ var hbs = require('handlebars');
  * function to gather info from template, then return html content to onfinish function
  */
 module.exports.addDataToTemplate = function(data, templatePath, onFinish){
-
     //read in the template handlebars file and compile with handlebars
     var template = fs.readFileSync(templatePath, 'utf8');
     var compiledEmail = hbs.compile(template);
